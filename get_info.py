@@ -1,8 +1,14 @@
 from requests_html import HTMLSession
 import bs4
 import re
+import json
 
-url = "https://engineering.uconn.edu/person/ki-chon/"
+links = []
+
+f = open('prof_links.txt', 'r')
+for line in f:
+    links.append(line)
+f.close()
 
 s = HTMLSession()
 
@@ -11,7 +17,6 @@ def load_page(u):
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
     return soup
 
-page = load_page(url)
 
 def select_string(element, pattern):
     match = re.search(pattern, str(element))
@@ -36,5 +41,15 @@ def return_info(soup):
     dict = {'prof_name': n, 'prof_site': w, 'prof_title': t, 'prof_department': d, 'prof_bio': b}
     return dict
 
+info_arr = []
 
-print(return_info(page))
+
+for url in links:
+    page=load_page(url)
+    info_arr.append(return_info(page))
+
+    
+
+
+with open('professor_info.txt', 'w') as fout:
+    json.dump(info_arr, fout)
