@@ -1,14 +1,7 @@
-from requests_html import HTMLSession
-from bs4 import BeautifulSoup
+import bs4
 
-base_url = "https://engineering.uconn.edu/faculty/"
+f = open("source.txt", "r", encoding="utf-8")
+soup = bs4.BeautifulSoup(f, "html.parser")
+f.close()
 
-s = HTMLSession()
-
-def load_page(url):
-    r = s.get(url=url)
-    soup = BeautifulSoup(r.text, 'html.parser')
-    return soup
-
-test = load_page(base_url)
 
