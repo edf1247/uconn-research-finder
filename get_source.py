@@ -10,5 +10,7 @@ def load_page(url):
     soup = BeautifulSoup(r.text, 'html.parser')
     return soup
 
-test = load_page(base_url)
+page = load_page(base_url)
 
+with open("source.txt", "w", encoding="utf-8") as f:
+    f.write(page.prettify())
