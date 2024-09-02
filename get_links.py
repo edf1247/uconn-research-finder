@@ -28,3 +28,9 @@ for link in arr:
 clean_links = [i for n, i in enumerate(link_arr) if i not in link_arr[:n]]
 
 print(len(clean_links))
+
+out = open("prof_links.txt",  'w')
+for i in clean_links:
+    out.write(str(i)+'\n')
+
+out.close()
